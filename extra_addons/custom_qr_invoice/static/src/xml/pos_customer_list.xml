@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="custom_qr_invoice.PartnerListScreen" t-inherit="point_of_sale.PartnerListScreen" t-inherit-mode="extension">
+        <xpath expr="//table[hasclass('partner-list')]/thead/tr" position="inside">
+            <th>Idioma</th>
+        </xpath>
+    </t>
+    <t t-name="custom_qr_invoice.PartnerLine" t-inherit="point_of_sale.PartnerLine" t-inherit-mode="extension">
+        <xpath expr="//tr" position="inside">
+            <td><t t-esc="props.partner.lang or ''" /></td>
+        </xpath>
+    </t>
+</templates>

@@ -1,4 +1,7 @@
 from odoo import models, fields, api
+import qrcode
+import base64
+import io
 
 class AccountMove(models.Model):
     _inherit = 'account.move'
@@ -9,12 +12,25 @@ class AccountMove(models.Model):
     x_emission_date = fields.Datetime(string="Fecha de Emisión", default=fields.Datetime.now)
     x_sale_channel_id = fields.Many2one('sale.channel', string="Canal de ventas")
     x_picking_ids = fields.Many2many('stock.picking', string="Transferencias", compute="_compute_pickings")
+    x_total_qty = fields.Float(string="Total Cantidades", compute="_compute_total_qty")
+
+    @api.depends('invoice_line_ids.quantity')
+    def _compute_total_qty(self):
+        for reg in self:
+            reg.x_total_qty = sum(l.quantity for l in reg.invoice_line_ids)
 
     def _compute_qr_code(self):
         for reg in self:
-            if reg.name:
-                # FIX: Método correcto para Odoo 17
-                reg.x_qr_code = self.env['ir.actions.report']._render_qrcode(reg.name)
+            if reg.name and reg.partner_id:
+                # Formato: Número|Cliente|Fecha|Total Unidades Total Pagar
+                qr_str = f"{reg.name}|{reg.partner_id.name}|{reg.invoice_date}|{reg.x_total_qty} {reg.amount_total}"
+                qr = qrcode.QRCode(version=1, box_size=4, border=1)
+                qr.add_data(qr_str)
+                qr.make(fit=True)
+                img = qr.make_image(fill_color="black", back_color="white")
+                buffer = io.BytesIO()
+                img.save(buffer, format="PNG")
+                reg.x_qr_code = base64.b64encode(buffer.getvalue())
             else:
                 reg.x_qr_code = False
 

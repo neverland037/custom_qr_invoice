@@ -1,6 +1,7 @@
 {
-    'name': 'Custom QR Invoice Base',
+    'name': 'QR Factura Pro',
     'version': '1.0',
+    'author': 'William Manchego',
     'depends': ['account', 'stock', 'sale', 'point_of_sale'],
     'data': [
         'security/ir.model.access.csv',
