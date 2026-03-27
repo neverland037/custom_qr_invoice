@@ -1,3 +1,1 @@
-from . import account_move
-from . import sale_channel
-from . import res_partner
+from . import account_move, sale_channel, res_partner

@@ -1,10 +1,2 @@
-<odoo>
-    <data noupdate="1">
-        <record id="channel_sales_team" model="sale.channel">
-            <field name="name">Equipo de Ventas</field>
-        </record>
-        <record id="channel_website" model="sale.channel">
-            <field name="name">Sitio web</field>
-        </record>
-    </data>
-</odoo>
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sale_channel,access.sale.channel,model_sale_channel,base.group_user,1,1,1,1

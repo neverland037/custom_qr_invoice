@@ -22,7 +22,7 @@ class AccountMove(models.Model):
     def _compute_qr_code(self):
         for reg in self:
             if reg.name and reg.partner_id:
-                # Formato: Número|Cliente|Fecha|Total Unidades Total Pagar
+                # Formato exacto Tarea 4 [cite: 80]
                 qr_str = f"{reg.name}|{reg.partner_id.name}|{reg.invoice_date}|{reg.x_total_qty} {reg.amount_total}"
                 qr = qrcode.QRCode(version=1, box_size=4, border=1)
                 qr.add_data(qr_str)

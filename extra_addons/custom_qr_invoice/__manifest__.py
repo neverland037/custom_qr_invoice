@@ -1,5 +1,5 @@
 {
-    'name': 'QR Factura Pro',
+    'name': 'QR Factura Pro Final',
     'version': '1.0',
     'author': 'William Manchego',
     'depends': ['account', 'stock', 'sale', 'point_of_sale'],
@@ -12,6 +12,8 @@
     'assets': {
         'point_of_sale._assets_pos': [
             'custom_qr_invoice/static/src/xml/pos_customer_list.xml',
+            'custom_qr_invoice/static/src/js/product_screen.js',
+            'custom_qr_invoice/static/src/js/payment_screen.js',
         ],
     },
     'installable': True,
